@@ -544,7 +544,7 @@ const prog=n=>(n===2?MAPS1.filter(k=>dmc('devil',k)):n===3?MAPS2.filter(k=>dmc('
 const aok=n=>n<=1||!!(SV.ua&&SV.ua[n])||rule(n);
 function areas(){SV.hint=SV.hint||{};if(aok(4)&&!aok(5))SV.hint.pyr=1;if(aok(5)&&!aok(6))SV.hint.tr=1;save();
  const A=[[1,'ひろがる畑エリア','畑・森・火山。基本のエリア','🌾','火山の畑を守り抜く'],[2,'砂漠エリア','砂丘・オアシス・古代遺跡。はじめての強敵','sand','悪魔モードでエリア1の全マップを守り抜く'],[3,'ジャングルエリア','巨木・寺院・樹海。巨大な恐竜が待つ','btree','地獄モードでエリア2の全マップを守り抜く'],[4,'魔界エリア','魔界・氷結・星降る畑。最難関のエリア','💀','地獄モードでエリア3の全マップを守り抜く'],[5,'雪エリア','雪原・イグルー・氷山。凍てつく最果て','snowm','地獄モードでエリア4の全マップを守り抜き、ピラミッドを制覇'],[6,'山岳エリア','盆地・崖・山頂。天を衝く最高峰','summitm','地獄モードでエリア5の全マップを守り抜き、財宝の間をクリア']],
- TM=['tm','タイムマシン','時を超える乗り物。その先は「中世」','tmach','地獄モードでエリア6の全マップを守り抜く'],past=SV.era===1,list=past?[TM,[7,'中世エリア','教会・世界遺産・ギリシャ。敵が桁違いに強い','medi','']]:[...A,TM];
+ TM=['tm','タイムマシン','時を超える乗り物。その先は・・・','tmach','地獄モードでエリア6の全マップを守り抜く'],past=SV.era===1,list=past?[TM,[7,'中世エリア','教会・世界遺産・ギリシャ。','medi','']]:[...A,TM];
  view(`<h2>🌍 エリア</h2><div class="cards">${list.map(a=>{const tm=a[0]==='tm',n=tm?7:a[0],lk=!aok(n),on=!tm&&SV.area===a[0];return`<button class="card${on?' on':''}" data-k="${a[0]}" ${lk?'disabled':''}><i>${ic(lk?'🔒':a[3])}</i><b>${tm?'タイムマシン':'エリア'+a[0]}</b><small>${tm?a[2]:a[1]+'<br>'+a[2]}</small><em>${on?'選択中':lk?a[4]+'と解放（'+prog(n)+'/3）':tm?'のりこむ':'選ぶ'}</em></button>`}).join('')}</div><button class="btn s" id="bk">← もどる</button>`);
  ov.querySelectorAll('.card').forEach(b=>b.onclick=()=>{if(document.getElementById('fd'))return;if(b.dataset.k==='tm'){sfx(880,.15,'triangle',.1);tmScreen();return}const t=+b.dataset.k;if(t===SV.area)return;sfx(880,.15,'triangle',.1);fade(()=>{SV.area=t;fixSV();const f1=t===2&&!SV.a2v,f6=t===6&&!SV.a6v;if(f1)SV.a2v=1;if(f6)SV.a6v=1;save();title();if(f1)setTimeout(()=>popups([{i:'sand',z:96,h:'エリア2へようこそ！',t:'ショップの強化がレベル15まで解放された！',s:'強化の上限が10から15に上がりました'}]),500);if(f6)setTimeout(()=>popups([{i:'summitm',z:96,h:'エリア6へようこそ！',t:'ショップの強化がレベル25まで解放された！',s:'強化の上限が25に上がりました'}]),500)})});$('#bk').onclick=title}
 const ck=m=>(SV.area>1?SV.area+':':'')+m;
@@ -921,14 +921,14 @@ function timeMap(){const ms=MPL.filter(a=>MP[a[0]].ar===7),ix=Math.max(0,ms.find
  ms.map((a,i)=>{const o=off[i]||[0,0];return`<circle cx="${300+o[0]}" cy="${168+o[1]}" r="6" fill="${i===ix?'#ffd86b':'#fff'}" ${O}/>`}).join('')+
  `<circle class="wring" cx="${sp[0]}" cy="${sp[1]}" r="26" fill="none" stroke="#5ee6d0" stroke-width="3"/><image class="wcat" href="${SRC[sk[1]]}" x="${sp[0]-22}" y="${sp[1]-34}" width="44" height="44"/></svg>`}
 function tmScreen(){const past=SV.era===1;
- view(`<h2>タイムマシン</h2><div class="logo">${ic('tmach',120)}</div><p>${past?'いまは「中世」にいる。<br>現代へ戻ることもできる。':'時を超えることができる}</p><div class="menu">${past?'<button class="btn s" id="t2">現代へ戻る</button>':'<button class="btn" id="t1">タイムマシンに乗る</button>'}</div><button class="btn s" id="bk">← もどる</button>`,'hub');
+ view(`<h2>タイムマシン</h2><div class="logo">${ic('tmach',120)}</div><p>${past?'いまは「中世」にいる。<br>現代へ戻ることもできる。':'時を超えて「中世」へ行ける。'}</p><div class="menu">${past?'<button class="btn s" id="t2">現代へ戻る</button>':'<button class="btn" id="t1">タイムマシンに乗る</button>'}</div><button class="btn s" id="bk">← もどる</button>`,'hub');
  if(past)$('#t2').onclick=()=>timeTravel(0);else $('#t1').onclick=()=>timeTravel(1);$('#bk').onclick=title}
 function timeTravel(toPast){if(document.getElementById('tmw')||document.getElementById('fd'))return;const w=document.createElement('div');w.id='tmw';document.body.appendChild(w);
  sfx(300,1,'sawtooth',.1);sfx(600,1.2,'triangle',.1);const ts='transform 1.5s cubic-bezier(.5,0,.9,.4)';cv.style.transition=ov.style.transition=ts;cv.style.transform=ov.style.transform='scale(.18) rotate(35deg)';void w.offsetWidth;w.style.opacity=1;
  setTimeout(()=>{cv.style.transition=ov.style.transition='none';cv.style.transform=ov.style.transform='';
   SV.era=toPast?1:0;SV.area=toPast?7:6;const first=toPast&&!SV.a7v;if(first){SV.a7v=1;SV.clear['x:time']=1}fixSV();const ts2=first?titleUpdate():[];if(ts2.length)SV.ttl=ts2[ts2.length-1];save();title();
   w.style.transition='opacity .9s';w.style.opacity=0;setTimeout(()=>w.remove(),1000);
-  if(first)setTimeout(()=>popups([{i:'tmach',z:96,h:'エリア7「中世」に到着！',t:'ショップの強化がレベル35まで解放された！}].concat(ts2.map(k=>({i:'🏅',h:'称号獲得！',t:'「'+TT[k].n+'」',s:'報酬 🪙+'+TT[k].r})))),600)},1600)}
+  if(first)setTimeout(()=>popups([{i:'tmach',z:96,h:'エリア7「中世」に到着！',t:'ショップの強化がレベル35まで解放された！'}].concat(ts2.map(k=>({i:'🏅',h:'称号獲得！',t:'「'+TT[k].n+'」',s:'報酬 🪙+'+TT[k].r})))),600)},1600)}
 function beanUpd(dt){if(CLM||JGM||IGM||CVM||DGM||PY||SV.map!=='church'||!SV.seed)return;
  if(!bean&&T>=3){bean={x:P.x+(Math.random()<.5?-1:1)*(380+Math.random()*120),y:P.y+(Math.random()-.5)*300,ent:0};banner={t:3,s:'豆の木が出現した！'};sfx(500,.4,'triangle',.12)}
  if(bean&&!bean.ent&&Math.hypot(P.x-bean.x,P.y-bean.y)<44){bean.ent=1;SV.cld=1;save();S='tr';clearIn();fade(()=>{SV.jm=SV.jm||SV.map;startCl()})}}
