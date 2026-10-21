@@ -1453,7 +1453,7 @@ function romeBridge(){
   g.save();g.clearRect(0,0,w,h);if(sh>0)g.translate((Math.random()-.5)*sh*10,(Math.random()-.5)*sh*10);scene();g.restore();
   if(fl>0){g.fillStyle='rgba(255,255,255,'+fl+')';g.fillRect(0,0,w,h)}
   if(st>=5){g.fillStyle='rgba(0,0,0,'+(st===5?Math.min(1,t/1.5):1)+')';g.fillRect(0,0,w,h)}
-  if(st===6){const a=t<1?t:t>4.2?Math.max(0,1-(t-4.2)):1;txt('Comming soon...',Math.min(w*.1,64),h*.5,'#ffffff',a)}
+  if(st===6){const a=t<1?t:t>4.2?Math.max(0,1-(t-4.2)):1;txt('Coming soon...',Math.min(w*.1,64),h*.5,'#ffffff',a)}
   raf=requestAnimationFrame(step)}
  function fin(){done=1;cancelAnimationFrame(raf);removeEventListener('keydown',kd);removeEventListener('keyup',ku);removeEventListener('pointerup',pu);removeEventListener('resize',fit);el.remove();SV.a10x=1;save();S='title';title()}
  raf=requestAnimationFrame(step)}
