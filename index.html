@@ -612,7 +612,7 @@ const dmc=(m,map)=>MODES.slice(MODES.indexOf(m)).some(x=>SV.clear['c:'+x+':'+map
 const rule=n=>n===2?MAPS1.every(k=>dmc('devil',k)):n===3?MAPS2.every(k=>dmc('hell',k)):n===4?MAPS3.every(k=>dmc('hell',k)):n===5?MAPS4.every(k=>dmc('hell',k))&&(SV.pyc||0)>=4:n===6?MAPS5.every(k=>dmc('hell',k))&&!!SV.clear['x:treasure']:n===7?MAPS6.every(k=>dmc('hell',k)):n===8?MAPS7.every(k=>dmc('hell',k)):n===9?MAPS8.every(k=>dmc('hell',k)):MAPS9.every(k=>dmc('hell',k));
 const prog=n=>(n===2?MAPS1.filter(k=>dmc('devil',k)):n===3?MAPS2.filter(k=>dmc('hell',k)):n===4?MAPS3.filter(k=>dmc('hell',k)):n===5?MAPS4.filter(k=>dmc('hell',k)):n===6?MAPS5.filter(k=>dmc('hell',k)):n===7?MAPS6.filter(k=>dmc('hell',k)):n===8?MAPS7.filter(k=>dmc('hell',k)):n===9?MAPS8.filter(k=>dmc('hell',k)):MAPS9.filter(k=>dmc('hell',k))).length;
 /*DEBUG: エリア10を解放済みとして扱う（確認が終わったら false にする）*/
-const DEBUG_AREA10=true;
+const DEBUG_AREA10=false;
 const aok=n=>(DEBUG_AREA10&&n===10)||n<=1||!!(SV.ua&&SV.ua[n])||rule(n);
 function areas(){SV.hint=SV.hint||{};if(aok(4)&&!aok(5))SV.hint.pyr=1;if(aok(5)&&!aok(6))SV.hint.tr=1;save();
  const A=[[1,'ひろがる畑エリア','畑・森・火山。基本のエリア','🌾','火山の畑を守り抜く'],[2,'砂漠エリア','砂丘・オアシス・古代遺跡。はじめての強敵','sand','悪魔モードでエリア1の全マップを守り抜く'],[3,'ジャングルエリア','巨木・寺院・樹海。巨大な恐竜が待つ','btree','地獄モードでエリア2の全マップを守り抜く'],[4,'魔界エリア','魔界・氷結・星降る畑。最難関のエリア','💀','地獄モードでエリア3の全マップを守り抜く'],[5,'雪エリア','雪原・イグルー・氷山。凍てつく最果て','snowm','地獄モードでエリア4の全マップを守り抜き、ピラミッドを制覇'],[6,'山岳エリア','盆地・崖・山頂。天を衝く最高峰','summitm','地獄モードでエリア5の全マップを守り抜き、財宝の間をクリア']],
